@@ -5,8 +5,8 @@ import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
 const items = [
   {
     name: "Liquid Glass",
-    description: "Apple-like translucent surface with blur, tint, edge highlights and SVG distortion.",
-    tags: ["Effect", "Glass", "Apple"],
+    description: "Dynamic liquid-glass dock and CTA inspired by Suraj Gaud's public Liquid Glass component.",
+    tags: ["Effect", "Glass", "Dock"],
     source: "components/effects/liquid-glass.tsx",
     Demo: LiquidGlassDemo,
   },
