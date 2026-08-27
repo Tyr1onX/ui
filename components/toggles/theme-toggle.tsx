@@ -7,197 +7,40 @@ export interface ThemeToggleProps {
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
   className?: string;
-  size?: number;
 }
 
-/**
- * Serenity-style light/dark toggle inspired by Ayushmaan Singh's public
- * Theme Toggle preview. Dependency-free so it can be copied into plain React.
- */
-export function ThemeToggle({
-  checked,
-  defaultChecked = false,
-  onCheckedChange,
-  className = "",
-  size = 46,
-}: ThemeToggleProps) {
-  const [internalChecked, setInternalChecked] = useState(defaultChecked);
-  const isDark = checked ?? internalChecked;
+export function ThemeToggle({ checked, defaultChecked = true, onCheckedChange, className = "" }: ThemeToggleProps) {
+  const [internal, setInternal] = useState(defaultChecked);
+  const dark = checked ?? internal;
 
-  const update = () => {
-    const next = !isDark;
-    if (checked === undefined) setInternalChecked(next);
+  const toggle = () => {
+    const next = !dark;
+    if (checked === undefined) setInternal(next);
     onCheckedChange?.(next);
   };
 
   return (
     <button
       type="button"
-      className={`serenity-theme-toggle ${className}`}
-      data-dark={isDark ? "true" : "false"}
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      aria-pressed={isDark}
-      onClick={update}
-      style={{
-        width: size * 2.05,
-        height: size,
-        borderRadius: size,
-      }}
+      role="switch"
+      aria-checked={dark}
+      aria-label="Toggle theme"
+      onClick={toggle}
+      className={`flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300 border ${dark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-100 border-zinc-200"} ${className}`}
     >
-      <span className="serenity-theme-toggle__icon serenity-theme-toggle__icon--moon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
-        </svg>
-      </span>
-
-      <span className="serenity-theme-toggle__icon serenity-theme-toggle__icon--sun" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
-        </svg>
-      </span>
-
-      <span className="serenity-theme-toggle__thumb" aria-hidden="true">
-        <span className="serenity-theme-toggle__thumb-moon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.15" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z" />
+      <div className="flex justify-between items-center w-full">
+        <div className={`flex justify-center items-center w-6 h-6 rounded-full transition-all duration-300 ${dark ? "translate-x-0 bg-zinc-800" : "bg-transparent"}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 ${dark ? "text-white" : "text-gray-500"}`} aria-hidden="true">
+            <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
           </svg>
-        </span>
-        <span className="serenity-theme-toggle__thumb-sun">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.15" strokeLinecap="round" strokeLinejoin="round">
+        </div>
+        <div className={`flex justify-center items-center w-6 h-6 rounded-full transition-all duration-300 ${dark ? "bg-transparent" : "bg-white shadow-sm"}`}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 ${dark ? "text-gray-500" : "text-zinc-900"}`} aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            <path d="M12 2v2M12 20v2m-7.07-15.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
           </svg>
-        </span>
-      </span>
-
-      <style>{`
-        .serenity-theme-toggle {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 4px;
-          border: 1px solid rgba(15, 23, 42, .12);
-          color: #697386;
-          background: #f1f3f6;
-          box-shadow: inset 0 1px 2px rgba(15, 23, 42, .08), 0 1px 2px rgba(15, 23, 42, .05);
-          cursor: pointer;
-          transition: background .42s cubic-bezier(.22,1,.36,1), border-color .42s ease, box-shadow .42s ease;
-          isolation: isolate;
-        }
-
-        .serenity-theme-toggle[data-dark="true"] {
-          border-color: rgba(255,255,255,.11);
-          color: #8f98aa;
-          background: #151820;
-          box-shadow: inset 0 1px 2px rgba(0,0,0,.45), 0 1px 2px rgba(0,0,0,.14);
-        }
-
-        .serenity-theme-toggle:focus-visible {
-          outline: 3px solid rgba(99, 102, 241, .28);
-          outline-offset: 3px;
-        }
-
-        .serenity-theme-toggle__icon {
-          position: relative;
-          z-index: 1;
-          display: grid;
-          place-items: center;
-          width: 38%;
-          height: 100%;
-          transition: opacity .32s ease, transform .46s cubic-bezier(.34,1.56,.64,1);
-        }
-
-        .serenity-theme-toggle__icon svg {
-          width: 43%;
-          height: 43%;
-        }
-
-        .serenity-theme-toggle__icon--moon {
-          opacity: .45;
-        }
-
-        .serenity-theme-toggle__icon--sun {
-          color: #9a7c10;
-          opacity: .78;
-        }
-
-        .serenity-theme-toggle[data-dark="true"] .serenity-theme-toggle__icon--moon {
-          color: #cbd5e1;
-          opacity: .9;
-        }
-
-        .serenity-theme-toggle[data-dark="true"] .serenity-theme-toggle__icon--sun {
-          opacity: .35;
-        }
-
-        .serenity-theme-toggle__thumb {
-          position: absolute;
-          z-index: 2;
-          top: 4px;
-          left: 4px;
-          display: grid;
-          place-items: center;
-          width: calc(50% - 4px);
-          height: calc(100% - 8px);
-          overflow: hidden;
-          border-radius: 999px;
-          color: #334155;
-          background: #fff;
-          box-shadow: 0 4px 12px rgba(15,23,42,.16), inset 0 1px rgba(255,255,255,.8);
-          transform: translateX(0);
-          transition: transform .48s cubic-bezier(.34,1.56,.64,1), color .35s ease, background .35s ease;
-        }
-
-        .serenity-theme-toggle[data-dark="true"] .serenity-theme-toggle__thumb {
-          color: #fde68a;
-          background: #252936;
-          transform: translateX(100%);
-          box-shadow: 0 4px 14px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.07);
-        }
-
-        .serenity-theme-toggle__thumb > span {
-          position: absolute;
-          display: grid;
-          place-items: center;
-          width: 52%;
-          height: 52%;
-          transition: opacity .28s ease, transform .46s cubic-bezier(.34,1.56,.64,1);
-        }
-
-        .serenity-theme-toggle__thumb svg {
-          width: 100%;
-          height: 100%;
-        }
-
-        .serenity-theme-toggle__thumb-moon {
-          opacity: 1;
-          transform: rotate(0deg) scale(1);
-        }
-
-        .serenity-theme-toggle__thumb-sun {
-          opacity: 0;
-          transform: rotate(-90deg) scale(.6);
-        }
-
-        .serenity-theme-toggle[data-dark="true"] .serenity-theme-toggle__thumb-moon {
-          opacity: 0;
-          transform: rotate(70deg) scale(.6);
-        }
-
-        .serenity-theme-toggle[data-dark="true"] .serenity-theme-toggle__thumb-sun {
-          opacity: 1;
-          transform: rotate(0deg) scale(1);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .serenity-theme-toggle,
-          .serenity-theme-toggle * {
-            transition-duration: .01ms !important;
-          }
-        }
-      `}</style>
+        </div>
+      </div>
     </button>
   );
 }
