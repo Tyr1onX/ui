@@ -1,7 +1,14 @@
 import { AuroraBackgroundDemo } from "./demos/aurora-background-demo";
+import { ButtonOneDemo } from "./demos/button-one-demo";
+import { ButtonSevenDemo } from "./demos/button-seven-demo";
+import { CinematicThemeSwitcherDemo } from "./demos/cinematic-theme-switcher-demo";
+import { CurtainThemeToggleDemo } from "./demos/curtain-theme-toggle-demo";
+import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
+import { SkyToggleDemo } from "./demos/sky-toggle-demo";
 import { SparkBadgeDemo } from "./demos/spark-badge-demo";
+import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
 const items = [
   {
@@ -31,6 +38,55 @@ const items = [
     tags: ["Effect", "Canvas", "Particles"],
     source: "components/effects/spark-badge.tsx",
     Demo: SparkBadgeDemo,
+  },
+  {
+    name: "Theme Toggle",
+    description: "Serenity-style animated moon and sun theme switch inspired by Ayushmaan Singh's public component.",
+    tags: ["Toggle", "Theme", "Serenity"],
+    source: "components/toggles/theme-toggle.tsx",
+    Demo: ThemeToggleDemo,
+  },
+  {
+    name: "Sky Toggle",
+    description: "Playful day-to-night switch with sun, cloud layers, stars and a cratered moon.",
+    tags: ["Toggle", "Theme", "Sky"],
+    source: "components/toggles/sky-toggle.tsx",
+    Demo: SkyToggleDemo,
+  },
+  {
+    name: "Curtain Theme Toggle",
+    description: "Theme switch that covers its target with a curtain before revealing the new appearance.",
+    tags: ["Toggle", "Theme", "Transition"],
+    source: "components/toggles/curtain-theme-toggle.tsx",
+    Demo: CurtainThemeToggleDemo,
+  },
+  {
+    name: "Cinematic Theme Switcher",
+    description: "Tactile film-grain day/night switch adapted from Om Rohilla's public cinematic switcher.",
+    tags: ["Toggle", "Theme", "Cinematic"],
+    source: "components/toggles/cinematic-theme-switcher.tsx",
+    Demo: CinematicThemeSwitcherDemo,
+  },
+  {
+    name: "Liquid Glass Button",
+    description: "Designali-style glass button using local SVG displacement, highlights and layered glass shadows.",
+    tags: ["Button", "Glass", "Liquid"],
+    source: "components/buttons/liquid-glass-button.tsx",
+    Demo: LiquidGlassButtonDemo,
+  },
+  {
+    name: "Button 1 — Liquid Gradient",
+    description: "UI Layout's animated multicolor liquid-gradient button, adapted to run without Motion.",
+    tags: ["Button", "Gradient", "Liquid"],
+    source: "components/buttons/liquid-gradient-button.tsx",
+    Demo: ButtonOneDemo,
+  },
+  {
+    name: "Button 7 — Expand Arrow",
+    description: "UI Layout's compact round arrow button that expands to reveal its label on hover.",
+    tags: ["Button", "Hover", "Arrow"],
+    source: "components/buttons/expand-arrow-button.tsx",
+    Demo: ButtonSevenDemo,
   },
 ];
 
