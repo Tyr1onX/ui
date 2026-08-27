@@ -1,6 +1,9 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
 import { useState } from "react";
+
+import { cn } from "../_utils/cn";
 
 export interface ThemeToggleProps {
   checked?: boolean;
@@ -9,12 +12,22 @@ export interface ThemeToggleProps {
   className?: string;
 }
 
-export function ThemeToggle({ checked, defaultChecked = true, onCheckedChange, className = "" }: ThemeToggleProps) {
+/**
+ * Visual structure restored from the public 21st/Ayushmaan mirror.
+ * Theme state stays local/controlled here so one gallery tile cannot toggle
+ * the document root theme for every other preview on the page.
+ */
+export function ThemeToggle({
+  checked,
+  defaultChecked = false,
+  onCheckedChange,
+  className,
+}: ThemeToggleProps) {
   const [internal, setInternal] = useState(defaultChecked);
-  const dark = checked ?? internal;
+  const isDark = checked ?? internal;
 
   const toggle = () => {
-    const next = !dark;
+    const next = !isDark;
     if (checked === undefined) setInternal(next);
     onCheckedChange?.(next);
   };
@@ -22,25 +35,45 @@ export function ThemeToggle({ checked, defaultChecked = true, onCheckedChange, c
   return (
     <button
       type="button"
-      role="switch"
-      aria-checked={dark}
-      aria-label="Toggle theme"
+      className={cn(
+        "flex h-8 w-16 cursor-pointer rounded-full border border-secondary p-1 transition-all duration-300",
+        isDark ? "bg-zinc-950" : "bg-white",
+        className,
+      )}
       onClick={toggle}
-      className={`flex w-16 h-8 p-1 rounded-full cursor-pointer transition-all duration-300 border ${dark ? "bg-zinc-950 border-zinc-800" : "bg-zinc-100 border-zinc-200"} ${className}`}
+      role="switch"
+      aria-checked={isDark}
+      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
     >
-      <div className="flex justify-between items-center w-full">
-        <div className={`flex justify-center items-center w-6 h-6 rounded-full transition-all duration-300 ${dark ? "translate-x-0 bg-zinc-800" : "bg-transparent"}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 ${dark ? "text-white" : "text-gray-500"}`} aria-hidden="true">
-            <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
-          </svg>
-        </div>
-        <div className={`flex justify-center items-center w-6 h-6 rounded-full transition-all duration-300 ${dark ? "bg-transparent" : "bg-white shadow-sm"}`}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={`w-4 h-4 ${dark ? "text-gray-500" : "text-zinc-900"}`} aria-hidden="true">
-            <circle cx="12" cy="12" r="4" />
-            <path d="M12 2v2M12 20v2m-7.07-15.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-          </svg>
-        </div>
-      </div>
+      <span className="flex w-full items-center justify-between">
+        <span
+          className={cn(
+            "flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-300",
+            isDark
+              ? "translate-x-0 bg-zinc-800"
+              : "translate-x-8 bg-gray-200",
+          )}
+        >
+          {isDark ? (
+            <Moon className="h-4 w-4 text-white" strokeWidth={1.5} />
+          ) : (
+            <Sun className="h-4 w-4 text-gray-700" strokeWidth={1.5} />
+          )}
+        </span>
+
+        <span
+          className={cn(
+            "flex h-6 w-6 items-center justify-center rounded-full transition-transform duration-300",
+            isDark ? "bg-transparent" : "-translate-x-8",
+          )}
+        >
+          {isDark ? (
+            <Sun className="h-4 w-4 text-gray-500" strokeWidth={1.5} />
+          ) : (
+            <Moon className="h-4 w-4 text-black" strokeWidth={1.5} />
+          )}
+        </span>
+      </span>
     </button>
   );
 }
