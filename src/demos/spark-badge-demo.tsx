@@ -10,7 +10,7 @@ export function SparkBadgeDemo() {
         background: "#000",
       }}
     >
-      <SparkBadge sourceUrl={`${import.meta.env.BASE_URL}spark-badge.html`} />
+      <SparkBadge sourceUrl="spark-badge.html" />
     </div>
   );
 }
