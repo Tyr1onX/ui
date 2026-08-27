@@ -65,7 +65,7 @@ interface FluxLabelProps {
 
 function FluxLabel({ label, reduced, className }: FluxLabelProps) {
   const base = cn(
-    "absolute inset-0 flex items-center justify-center text-center text-3xl font-semibold tracking-tight text-muted-foreground sm:text-4xl",
+    "absolute inset-0 flex items-center justify-center text-center text-3xl font-semibold tracking-tight text-[#737373] sm:text-4xl",
     className,
   );
 
@@ -210,7 +210,7 @@ export function ProgressiveFluxLoader({
 
       <div
         className={cn(
-          "relative h-5 w-full overflow-hidden rounded-full bg-muted shadow-[inset_0_2px_3px_rgba(0,0,0,0.09),inset_0_-1px_2px_rgba(255,255,255,0.7)] dark:shadow-[inset_0_2px_3px_rgba(0,0,0,0.45),inset_0_-1px_2px_rgba(255,255,255,0.05)]",
+          "relative h-5 w-full overflow-hidden rounded-full bg-[#f5f5f5] shadow-[inset_0_2px_3px_rgba(0,0,0,0.09),inset_0_-1px_2px_rgba(255,255,255,0.7)] dark:shadow-[inset_0_2px_3px_rgba(0,0,0,0.45),inset_0_-1px_2px_rgba(255,255,255,0.05)]",
           barClassName,
         )}
         role="progressbar"
