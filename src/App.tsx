@@ -5,9 +5,12 @@ import { CinematicThemeSwitcherDemo } from "./demos/cinematic-theme-switcher-dem
 import { CurtainThemeToggleDemo } from "./demos/curtain-theme-toggle-demo";
 import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
+import { MacOSDockDemo } from "./demos/mac-os-dock-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
+import { ParticleDriftDemo } from "./demos/particle-drift-demo";
 import { SkyToggleDemo } from "./demos/sky-toggle-demo";
 import { SparkBadgeDemo } from "./demos/spark-badge-demo";
+import { TactileButtonDemo } from "./demos/tactile-button-demo";
 import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
 const items = [
@@ -38,6 +41,13 @@ const items = [
     tags: ["Effect", "Canvas", "Particles"],
     source: "components/effects/spark-badge.tsx",
     Demo: SparkBadgeDemo,
+  },
+  {
+    name: "Particle Drift",
+    description: "Meng To's ASCII node field with rising beams, proximity links and pointer-connected particles.",
+    tags: ["Effect", "Canvas", "Particles"],
+    source: "components/effects/particle-drift.tsx",
+    Demo: ParticleDriftDemo,
   },
   {
     name: "Theme Toggle",
@@ -88,6 +98,20 @@ const items = [
     source: "components/buttons/expand-arrow-button.tsx",
     Demo: ButtonSevenDemo,
   },
+  {
+    name: "Tactile Button",
+    description: "Meng To's cyan tactile-fluid CTA rebuilt as a local WebGL surface with pointer slosh and click discharge.",
+    tags: ["Button", "WebGL", "Tactile"],
+    source: "components/buttons/tactile-button.tsx",
+    Demo: TactileButtonDemo,
+  },
+  {
+    name: "Mac OS Dock",
+    description: "dhmnpunit's responsive Dock interaction with cosine magnification, bounce feedback and open-app indicators.",
+    tags: ["Dock", "Navigation", "macOS"],
+    source: "components/docks/mac-os-dock.tsx",
+    Demo: MacOSDockDemo,
+  },
 ];
 
 export default function App() {
@@ -113,7 +137,8 @@ export default function App() {
           <button className="active" type="button">All</button>
           <button type="button">Effects</button>
           <button type="button">Buttons</button>
-          <button type="button">Cards</button>
+          <button type="button">Toggles</button>
+          <button type="button">Docks</button>
         </div>
       </section>
 

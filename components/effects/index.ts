@@ -6,3 +6,5 @@ export { OceanicCurrents, ShaderBackground } from "./oceanic-currents";
 export type { OceanicCurrentsProps } from "./oceanic-currents";
 export { SparkBadge } from "./spark-badge";
 export type { SparkBadgeProps } from "./spark-badge";
+export { ParticleDrift } from "./particle-drift";
+export type { ParticleDriftProps } from "./particle-drift";
