@@ -1,6 +1,7 @@
 import { AuroraBackgroundDemo } from "./demos/aurora-background-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
+import { SparkBadgeDemo } from "./demos/spark-badge-demo";
 
 const items = [
   {
@@ -23,6 +24,13 @@ const items = [
     tags: ["Effect", "Shader", "WebGL"],
     source: "components/effects/oceanic-currents.tsx",
     Demo: OceanicCurrentsDemo,
+  },
+  {
+    name: "Spark Badge",
+    description: "Meng To's animated credential badge rebuilt from sparks and rain with a local Canvas renderer.",
+    tags: ["Effect", "Canvas", "Particles"],
+    source: "components/effects/spark-badge.tsx",
+    Demo: SparkBadgeDemo,
   },
 ];
 
