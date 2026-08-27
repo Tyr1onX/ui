@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ComponentType } from "react";
 import { AuroraBackgroundDemo } from "./demos/aurora-background-demo";
 import { ButtonOneDemo } from "./demos/button-one-demo";
 import { ButtonSevenDemo } from "./demos/button-seven-demo";
@@ -26,22 +26,22 @@ type GalleryItem = {
   source: string;
   original: string;
   fidelity: Fidelity;
-  Demo: () => JSX.Element;
+  Demo: ComponentType;
 };
 
 const items: GalleryItem[] = [
   { name: "Liquid Glass", author: "suraj-xd", category: "effects", tags: ["Glass", "Dock"], source: "components/effects/liquid-glass.tsx", original: "https://21st.dev/@suraj-xd/components/liquid-glass", fidelity: "source", Demo: LiquidGlassDemo },
   { name: "Aurora Background", author: "manuarora700", category: "effects", tags: ["Background", "Aurora"], source: "components/effects/aurora-background.tsx", original: "https://21st.dev/@manuarora700/components/aurora-background", fidelity: "source", Demo: AuroraBackgroundDemo },
   { name: "Oceanic Currents", author: "community / shaders", category: "effects", tags: ["Shader", "WebGL"], source: "components/effects/oceanic-currents.tsx", original: "https://21st.dev/community/shaders/oceanic-currents-5fc8773a-9561-4cba-9eec-27b7899021e3", fidelity: "reproduction", Demo: OceanicCurrentsDemo },
-  { name: "Spark Badge", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/spark-badge.tsx", original: "https://21st.dev/@mengto/components/spark-badge", fidelity: "source", Demo: SparkBadgeDemo },
+  { name: "Spark Badge", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/spark-badge.tsx", original: "https://21st.dev/@mengto/components/spark-badge", fidelity: "adapted", Demo: SparkBadgeDemo },
   { name: "Particle Drift", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/particle-drift.tsx", original: "https://21st.dev/@mengto/components/particle-drift", fidelity: "adapted", Demo: ParticleDriftDemo },
   { name: "Spotlight", author: "ibelick", category: "effects", tags: ["Cursor", "Spotlight"], source: "components/effects/spotlight.tsx", original: "https://21st.dev/@ibelick/components/spotlight", fidelity: "source", Demo: SpotlightDemo },
-  { name: "Theme Toggle", author: "ayushmxxn", category: "toggles", tags: ["Theme", "Serenity"], source: "components/toggles/theme-toggle.tsx", original: "https://21st.dev/@ayushmxxn/components/theme-toggle", fidelity: "source", Demo: ThemeToggleDemo },
+  { name: "Theme Toggle", author: "ayushmxxn", category: "toggles", tags: ["Theme", "Serenity"], source: "components/toggles/theme-toggle.tsx", original: "https://21st.dev/@ayushmxxn/components/theme-toggle", fidelity: "adapted", Demo: ThemeToggleDemo },
   { name: "Sky Toggle", author: "ravikatiyar162", category: "toggles", tags: ["Theme", "Sky"], source: "components/toggles/sky-toggle.tsx", original: "https://21st.dev/@ravikatiyar162/components/sky-toggle", fidelity: "source", Demo: SkyToggleDemo },
   { name: "Curtain Theme Toggle", author: "fatih-developer", category: "toggles", tags: ["Theme", "Transition"], source: "components/toggles/curtain-theme-toggle.tsx", original: "https://21st.dev/@fatih-developer/components/curtain-theme-toggle", fidelity: "reproduction", Demo: CurtainThemeToggleDemo },
-  { name: "Cinematic Theme Switcher", author: "omrohilla6", category: "toggles", tags: ["Theme", "Cinematic"], source: "components/toggles/cinematic-theme-switcher.tsx", original: "https://21st.dev/@omrohilla6/components/cinematic-theme-switcher", fidelity: "source", Demo: CinematicThemeSwitcherDemo },
-  { name: "Liquid Glass Button", author: "designali-in", category: "buttons", tags: ["Glass", "Liquid"], source: "components/buttons/liquid-glass-button.tsx", original: "https://21st.dev/@designali-in/components/liquid-glass-button", fidelity: "adapted", Demo: LiquidGlassButtonDemo },
-  { name: "Button 1 · Github Liquid", author: "uilayout.contact", category: "buttons", tags: ["Liquid", "Motion"], source: "components/buttons/liquid-gradient-button.tsx", original: "https://21st.dev/@uilayout.contact/components/button-1", fidelity: "source", Demo: ButtonOneDemo },
+  { name: "Cinematic Theme Switcher", author: "omrohilla6", category: "toggles", tags: ["Theme", "Cinematic"], source: "components/toggles/cinematic-theme-switcher.tsx", original: "https://21st.dev/@omrohilla6/components/cinematic-theme-switcher", fidelity: "adapted", Demo: CinematicThemeSwitcherDemo },
+  { name: "Liquid Glass Button", author: "designali-in", category: "buttons", tags: ["Glass", "Liquid"], source: "components/buttons/liquid-glass-button.tsx", original: "https://21st.dev/@designali-in/components/liquid-glass-button", fidelity: "source", Demo: LiquidGlassButtonDemo },
+  { name: "Button 1 · Github Liquid", author: "uilayout.contact", category: "buttons", tags: ["Liquid", "Motion"], source: "components/buttons/liquid-gradient-button.tsx", original: "https://21st.dev/@uilayout.contact/components/button-1", fidelity: "adapted", Demo: ButtonOneDemo },
   { name: "Button 7 · Expand Arrow", author: "uilayout.contact", category: "buttons", tags: ["Hover", "Arrow"], source: "components/buttons/expand-arrow-button.tsx", original: "https://21st.dev/@uilayout.contact/components/button-7", fidelity: "source", Demo: ButtonSevenDemo },
   { name: "Tactile Button", author: "mengto", category: "buttons", tags: ["WebGL", "Tactile"], source: "components/buttons/tactile-button.tsx", original: "https://21st.dev/@mengto/components/tactile-button", fidelity: "adapted", Demo: TactileButtonDemo },
   { name: "Mac OS Dock", author: "dhmnpunit", category: "docks", tags: ["Navigation", "macOS"], source: "components/docks/mac-os-dock.tsx", original: "https://21st.dev/@dhmnpunit/components/mac-os-dock", fidelity: "adapted", Demo: MacOSDockDemo },
