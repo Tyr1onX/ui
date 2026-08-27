@@ -7,15 +7,17 @@ import { CurtainThemeToggleDemo } from "./demos/curtain-theme-toggle-demo";
 import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
 import { MacOSDockDemo } from "./demos/mac-os-dock-demo";
+import { MorphingSquareDemo } from "./demos/morphing-square-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
 import { ParticleDriftDemo } from "./demos/particle-drift-demo";
+import { ProgressiveFluxLoaderDemo } from "./demos/progressive-flux-loader-demo";
 import { SkyToggleDemo } from "./demos/sky-toggle-demo";
 import { SparkBadgeDemo } from "./demos/spark-badge-demo";
 import { SpotlightDemo } from "./demos/spotlight-demo";
 import { TactileButtonDemo } from "./demos/tactile-button-demo";
 import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
-type Category = "effects" | "buttons" | "toggles" | "docks";
+type Category = "effects" | "buttons" | "toggles" | "docks" | "loaders";
 type Fidelity = "source" | "adapted" | "reproduction";
 
 type GalleryItem = {
@@ -36,6 +38,8 @@ const items: GalleryItem[] = [
   { name: "Spark Badge", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/spark-badge.tsx", original: "https://21st.dev/@mengto/components/spark-badge", fidelity: "adapted", Demo: SparkBadgeDemo },
   { name: "Particle Drift", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/particle-drift.tsx", original: "https://21st.dev/@mengto/components/particle-drift", fidelity: "adapted", Demo: ParticleDriftDemo },
   { name: "Spotlight", author: "ibelick", category: "effects", tags: ["Cursor", "Spotlight"], source: "components/effects/spotlight.tsx", original: "https://21st.dev/@ibelick/components/spotlight", fidelity: "source", Demo: SpotlightDemo },
+  { name: "Progressive Flux Loader", author: "ruixen.ui", category: "loaders", tags: ["Progress", "Motion"], source: "components/loaders/progressive-flux-loader.tsx", original: "https://21st.dev/@ruixen.ui/components/progressive-flux-loader", fidelity: "source", Demo: ProgressiveFluxLoaderDemo },
+  { name: "Morphing Square", author: "molecule-lab-rushil", category: "loaders", tags: ["Loader", "Motion"], source: "components/loaders/morphing-square.tsx", original: "https://21st.dev/@molecule-lab-rushil/components/morphing-square", fidelity: "source", Demo: MorphingSquareDemo },
   { name: "Theme Toggle", author: "ayushmxxn", category: "toggles", tags: ["Theme", "Serenity"], source: "components/toggles/theme-toggle.tsx", original: "https://21st.dev/@ayushmxxn/components/theme-toggle", fidelity: "adapted", Demo: ThemeToggleDemo },
   { name: "Sky Toggle", author: "ravikatiyar162", category: "toggles", tags: ["Theme", "Sky"], source: "components/toggles/sky-toggle.tsx", original: "https://21st.dev/@ravikatiyar162/components/sky-toggle", fidelity: "source", Demo: SkyToggleDemo },
   { name: "Curtain Theme Toggle", author: "fatih-developer", category: "toggles", tags: ["Theme", "Transition"], source: "components/toggles/curtain-theme-toggle.tsx", original: "https://21st.dev/@fatih-developer/components/curtain-theme-toggle", fidelity: "reproduction", Demo: CurtainThemeToggleDemo },
@@ -53,6 +57,7 @@ const categoryLabels: Record<Category | "all", string> = {
   buttons: "按钮",
   toggles: "主题开关",
   docks: "Dock / 导航",
+  loaders: "加载器",
 };
 
 const fidelityLabels: Record<Fidelity | "all", string> = {
@@ -73,6 +78,7 @@ export default function App() {
     buttons: items.filter((item) => item.category === "buttons").length,
     toggles: items.filter((item) => item.category === "toggles").length,
     docks: items.filter((item) => item.category === "docks").length,
+    loaders: items.filter((item) => item.category === "loaders").length,
   }), []);
 
   const filtered = useMemo(() => {
