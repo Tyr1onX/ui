@@ -23,6 +23,7 @@ This repository contains visual components sourced from or adapted from public u
 
 ## Source-based with gallery isolation/runtime adaptation
 
+- Liquid Gooey: uses Jakub Antalik's official `liquid-gooey` package (`0.1.x`, MIT) directly. The compact gallery component follows the upstream Plus Menu morph pattern while using local inline SVG icons and RedPalm-oriented labels; no iframe, CDN, or external image assets are required.
 - Theme Toggle: the public Ayushmaan/21st-style implementation uses `next-themes` and changes the document theme. The gallery preserves the moving-knob/icon behavior but keeps theme state local so one tile cannot recolor the whole component browser.
 - Curtain Theme Toggle: the public Fatih implementation is restored, including `default` / `appbar` / `icon` variants, design tokens, and falling/rising curtain timing. Two optional isolation hooks contain the curtain inside a preview tile and prevent global `document.documentElement` dark-class mutation.
 - Cinematic Theme Switcher: based on the public Om Rohilla implementation. Visuals, spring motion, and particle burst are preserved while theme state is isolated for the gallery.

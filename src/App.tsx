@@ -13,6 +13,7 @@ import { GooeyDockDemo } from "./demos/gooey-dock-demo";
 import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
 import { LiquidGlassCardDemo } from "./demos/liquid-glass-card-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
+import { LiquidGooeyDemo } from "./demos/liquid-gooey-demo";
 import { MacOSDockDemo } from "./demos/mac-os-dock-demo";
 import { MorphingSquareDemo } from "./demos/morphing-square-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
@@ -35,6 +36,7 @@ type GalleryItem = {
   tags: string[];
   source: string;
   original: string;
+  originalLabel?: string;
   fidelity: Fidelity;
   Demo: ComponentType;
 };
@@ -49,6 +51,7 @@ const items: GalleryItem[] = [
   { name: "Animated Gradient Border", author: "easemize", category: "borders", tags: ["Border", "Gradient", "Active", "RedPalm"], source: "components/borders/animated-gradient-border.tsx", original: "https://21st.dev/@easemize/components/animated-gradient-border", fidelity: "source", Demo: AnimatedGradientBorderDemo },
   { name: "Gooey Dock", author: "ruixen.ui", category: "docks", tags: ["Navigation", "Motion", "RedPalm"], source: "components/docks/gooey-dock.tsx", original: "https://21st.dev/@ruixen.ui/components/gooey-dock", fidelity: "source", Demo: GooeyDockDemo },
   { name: "Liquid Glass", author: "suraj-xd", category: "effects", tags: ["Glass", "Dock"], source: "components/effects/liquid-glass.tsx", original: "https://21st.dev/@suraj-xd/components/liquid-glass", fidelity: "source", Demo: LiquidGlassDemo },
+  { name: "Liquid Gooey", author: "Jakub Antalik", category: "effects", tags: ["Liquid", "Gooey", "Morph", "Motion", "RedPalm"], source: "components/effects/liquid-gooey.tsx", original: "https://gooey.jakubantalik.com/", originalLabel: "Demo", fidelity: "adapted", Demo: LiquidGooeyDemo },
   { name: "Aurora Background", author: "manuarora700", category: "effects", tags: ["Background", "Aurora"], source: "components/effects/aurora-background.tsx", original: "https://21st.dev/@manuarora700/components/aurora-background", fidelity: "source", Demo: AuroraBackgroundDemo },
   { name: "Oceanic Currents", author: "community / shaders", category: "effects", tags: ["Shader", "WebGL"], source: "components/effects/oceanic-currents.tsx", original: "https://21st.dev/community/shaders/oceanic-currents-5fc8773a-9561-4cba-9eec-27b7899021e3", fidelity: "reproduction", Demo: OceanicCurrentsDemo },
   { name: "Spark Badge", author: "mengto", category: "effects", tags: ["Canvas", "Particles"], source: "components/effects/spark-badge.tsx", original: "https://21st.dev/@mengto/components/spark-badge", fidelity: "adapted", Demo: SparkBadgeDemo },
@@ -150,7 +153,7 @@ export default function App() {
         </div>
 
         <section className="component-grid">
-          {filtered.map(({ name, author, tags, source, original, fidelity: itemFidelity, Demo }) => (
+          {filtered.map(({ name, author, tags, source, original, originalLabel, fidelity: itemFidelity, Demo }) => (
             <article className="component-card" key={name}>
               <div className="component-preview"><div className="component-preview-inner"><Demo /></div></div>
               <div className="component-card-footer">
@@ -158,7 +161,7 @@ export default function App() {
                 <div className="component-actions">
                   <span className={`fidelity-dot ${itemFidelity}`} title={fidelityLabels[itemFidelity]} />
                   <a href={`https://github.com/Tyr1onX/ui/blob/main/${source}`} title="仓库源码">Code</a>
-                  <a href={original} target="_blank" rel="noreferrer" title="21st 原页面">21st ↗</a>
+                  <a href={original} target="_blank" rel="noreferrer" title="原始页面">{originalLabel ?? "21st"} ↗</a>
                 </div>
               </div>
               <div className="component-tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
