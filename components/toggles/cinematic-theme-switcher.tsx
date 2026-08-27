@@ -1,9 +1,8 @@
 'use client';
 
 import { Sun, Moon } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useTheme } from 'next-themes';
 
 interface Particle {
   id: number;
@@ -11,17 +10,22 @@ interface Particle {
   duration: number;
 }
 
-export function CinematicThemeSwitcher() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+export interface CinematicThemeSwitcherProps {
+  checked?: boolean;
+  defaultChecked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+}
+
+export function CinematicThemeSwitcher({
+  checked,
+  defaultChecked = false,
+  onCheckedChange,
+}: CinematicThemeSwitcherProps) {
+  const [internal, setInternal] = useState(defaultChecked);
   const [particles, setParticles] = useState<Particle[]>([]);
   const [isAnimating, setIsAnimating] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const isDark = mounted && (theme === 'dark' || resolvedTheme === 'dark');
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const isDark = checked ?? internal;
 
   const generateParticles = () => {
     const newParticles: Particle[] = [];
@@ -46,16 +50,10 @@ export function CinematicThemeSwitcher() {
 
   const handleToggle = () => {
     generateParticles();
-    setTheme(isDark ? 'light' : 'dark');
+    const next = !isDark;
+    if (checked === undefined) setInternal(next);
+    onCheckedChange?.(next);
   };
-
-  if (!mounted) {
-    return (
-      <div className="relative inline-block">
-        <div className="relative flex h-[64px] w-[104px] items-center rounded-full bg-gray-200 p-1" />
-      </div>
-    );
-  }
 
   return (
     <div className="relative inline-block">
