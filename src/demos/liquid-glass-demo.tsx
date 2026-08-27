@@ -12,6 +12,7 @@ const dockItems = [
 export function LiquidGlassDemo() {
   return (
     <div className="liquid-demo-stage">
+      <div className="liquid-demo-background" aria-hidden="true" />
       <div className="liquid-demo-shade" aria-hidden="true" />
 
       <div className="liquid-demo-content">
