@@ -1,4 +1,5 @@
 import { LiquidGlass } from "../../components/effects";
+import "./liquid-glass-demo.css";
 
 const dockItems = [
   { label: "AI", className: "icon-ai" },
