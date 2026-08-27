@@ -1,15 +1,23 @@
 import { useMemo, useState, type ComponentType } from "react";
+import { AnimatedGlowCardDemo } from "./demos/animated-glow-card-demo";
+import { AnimatedGradientBorderDemo } from "./demos/animated-gradient-border-demo";
 import { AuroraBackgroundDemo } from "./demos/aurora-background-demo";
 import { ButtonOneDemo } from "./demos/button-one-demo";
 import { ButtonSevenDemo } from "./demos/button-seven-demo";
+import { CardStackDemo } from "./demos/card-stack-demo";
 import { CinematicThemeSwitcherDemo } from "./demos/cinematic-theme-switcher-demo";
 import { CurtainThemeToggleDemo } from "./demos/curtain-theme-toggle-demo";
+import { DynamicIslandDemo } from "./demos/dynamic-island-demo";
+import { FlippingCardDemo } from "./demos/flipping-card-demo";
+import { GooeyDockDemo } from "./demos/gooey-dock-demo";
 import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
+import { LiquidGlassCardDemo } from "./demos/liquid-glass-card-demo";
 import { LiquidGlassDemo } from "./demos/liquid-glass-demo";
 import { MacOSDockDemo } from "./demos/mac-os-dock-demo";
 import { MorphingSquareDemo } from "./demos/morphing-square-demo";
 import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
 import { ParticleDriftDemo } from "./demos/particle-drift-demo";
+import { PlayingCardDemo } from "./demos/playing-card-demo";
 import { ProgressiveFluxLoaderDemo } from "./demos/progressive-flux-loader-demo";
 import { SkyToggleDemo } from "./demos/sky-toggle-demo";
 import { SparkBadgeDemo } from "./demos/spark-badge-demo";
@@ -17,7 +25,7 @@ import { SpotlightDemo } from "./demos/spotlight-demo";
 import { TactileButtonDemo } from "./demos/tactile-button-demo";
 import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
-type Category = "effects" | "buttons" | "toggles" | "docks" | "loaders";
+type Category = "effects" | "cards" | "status" | "borders" | "buttons" | "toggles" | "docks" | "loaders";
 type Fidelity = "source" | "adapted" | "reproduction";
 
 type GalleryItem = {
@@ -32,6 +40,14 @@ type GalleryItem = {
 };
 
 const items: GalleryItem[] = [
+  { name: "Playing Card", author: "maxim.bort.devel", category: "cards", tags: ["Card", "Event", "RedPalm"], source: "components/cards/playing-card.tsx", original: "https://21st.dev/@maxim.bort.devel/components/playing-card", fidelity: "reproduction", Demo: PlayingCardDemo },
+  { name: "Flipping Card", author: "aghasisahakyan1", category: "cards", tags: ["Card", "Flip", "RedPalm"], source: "components/cards/flipping-card.tsx", original: "https://21st.dev/@aghasisahakyan1/components/flipping-card", fidelity: "source", Demo: FlippingCardDemo },
+  { name: "Card Stack", author: "ruixen.ui", category: "cards", tags: ["Card", "Stack", "Drag", "RedPalm"], source: "components/cards/card-stack.tsx", original: "https://21st.dev/@ruixen.ui/components/card-stack", fidelity: "adapted", Demo: CardStackDemo },
+  { name: "Animated Glow Card", author: "easemize", category: "cards", tags: ["Card", "Glow", "Active", "RedPalm"], source: "components/cards/animated-glow-card.tsx", original: "https://21st.dev/@easemize/components/animated-glow-card", fidelity: "adapted", Demo: AnimatedGlowCardDemo },
+  { name: "Liquid Glass Card", author: "aliimam", category: "cards", tags: ["Card", "Glass", "Liquid", "RedPalm"], source: "components/cards/liquid-glass-card.tsx", original: "https://21st.dev/community/components/aliimam/liquid-glass-card/default", fidelity: "reproduction", Demo: LiquidGlassCardDemo },
+  { name: "Dynamic Island", author: "aghasisahakyan1", category: "status", tags: ["HUD", "Status", "Motion", "RedPalm"], source: "components/status/dynamic-island.tsx", original: "https://21st.dev/@aghasisahakyan1/components/dynamic-island", fidelity: "adapted", Demo: DynamicIslandDemo },
+  { name: "Animated Gradient Border", author: "easemize", category: "borders", tags: ["Border", "Gradient", "Active", "RedPalm"], source: "components/borders/animated-gradient-border.tsx", original: "https://21st.dev/@easemize/components/animated-gradient-border", fidelity: "source", Demo: AnimatedGradientBorderDemo },
+  { name: "Gooey Dock", author: "ruixen.ui", category: "docks", tags: ["Navigation", "Motion", "RedPalm"], source: "components/docks/gooey-dock.tsx", original: "https://21st.dev/@ruixen.ui/components/gooey-dock", fidelity: "source", Demo: GooeyDockDemo },
   { name: "Liquid Glass", author: "suraj-xd", category: "effects", tags: ["Glass", "Dock"], source: "components/effects/liquid-glass.tsx", original: "https://21st.dev/@suraj-xd/components/liquid-glass", fidelity: "source", Demo: LiquidGlassDemo },
   { name: "Aurora Background", author: "manuarora700", category: "effects", tags: ["Background", "Aurora"], source: "components/effects/aurora-background.tsx", original: "https://21st.dev/@manuarora700/components/aurora-background", fidelity: "source", Demo: AuroraBackgroundDemo },
   { name: "Oceanic Currents", author: "community / shaders", category: "effects", tags: ["Shader", "WebGL"], source: "components/effects/oceanic-currents.tsx", original: "https://21st.dev/community/shaders/oceanic-currents-5fc8773a-9561-4cba-9eec-27b7899021e3", fidelity: "reproduction", Demo: OceanicCurrentsDemo },
@@ -44,7 +60,7 @@ const items: GalleryItem[] = [
   { name: "Sky Toggle", author: "ravikatiyar162", category: "toggles", tags: ["Theme", "Sky"], source: "components/toggles/sky-toggle.tsx", original: "https://21st.dev/@ravikatiyar162/components/sky-toggle", fidelity: "source", Demo: SkyToggleDemo },
   { name: "Curtain Theme Toggle", author: "fatih-developer", category: "toggles", tags: ["Theme", "Transition"], source: "components/toggles/curtain-theme-toggle.tsx", original: "https://21st.dev/@fatih-developer/components/curtain-theme-toggle", fidelity: "adapted", Demo: CurtainThemeToggleDemo },
   { name: "Cinematic Theme Switcher", author: "omrohilla6", category: "toggles", tags: ["Theme", "Cinematic"], source: "components/toggles/cinematic-theme-switcher.tsx", original: "https://21st.dev/@omrohilla6/components/cinematic-theme-switcher", fidelity: "adapted", Demo: CinematicThemeSwitcherDemo },
-  { name: "Liquid Glass Button", author: "designali-in", category: "buttons", tags: ["Glass", "Liquid"], source: "components/buttons/liquid-glass-button.tsx", original: "https://21st.dev/@designali-in/components/liquid-glass-button", fidelity: "source", Demo: LiquidGlassButtonDemo },
+  { name: "Liquid Glass Button", author: "designali-in", category: "buttons", tags: ["Glass", "Liquid", "RedPalm"], source: "components/buttons/liquid-glass-button.tsx", original: "https://21st.dev/@designali-in/components/liquid-glass-button", fidelity: "source", Demo: LiquidGlassButtonDemo },
   { name: "Button 1 · Github Liquid", author: "uilayout.contact", category: "buttons", tags: ["Liquid", "Motion"], source: "components/buttons/liquid-gradient-button.tsx", original: "https://21st.dev/@uilayout.contact/components/button-1", fidelity: "adapted", Demo: ButtonOneDemo },
   { name: "Button 7 · Expand Arrow", author: "uilayout.contact", category: "buttons", tags: ["Hover", "Arrow"], source: "components/buttons/expand-arrow-button.tsx", original: "https://21st.dev/@uilayout.contact/components/button-7", fidelity: "source", Demo: ButtonSevenDemo },
   { name: "Tactile Button", author: "mengto", category: "buttons", tags: ["WebGL", "Tactile"], source: "components/buttons/tactile-button.tsx", original: "https://21st.dev/@mengto/components/tactile-button", fidelity: "adapted", Demo: TactileButtonDemo },
@@ -54,6 +70,9 @@ const items: GalleryItem[] = [
 const categoryLabels: Record<Category | "all", string> = {
   all: "全部组件",
   effects: "视觉效果",
+  cards: "卡片 / 事件",
+  status: "状态 / HUD",
+  borders: "边框",
   buttons: "按钮",
   toggles: "主题开关",
   docks: "Dock / 导航",
@@ -72,14 +91,13 @@ export default function App() {
   const [fidelity, setFidelity] = useState<Fidelity | "all">("all");
   const [query, setQuery] = useState("");
 
-  const counts = useMemo(() => ({
-    all: items.length,
-    effects: items.filter((item) => item.category === "effects").length,
-    buttons: items.filter((item) => item.category === "buttons").length,
-    toggles: items.filter((item) => item.category === "toggles").length,
-    docks: items.filter((item) => item.category === "docks").length,
-    loaders: items.filter((item) => item.category === "loaders").length,
-  }), []);
+  const counts = useMemo(() => {
+    const result = { all: items.length } as Record<Category | "all", number>;
+    (Object.keys(categoryLabels) as Array<Category | "all">).forEach((key) => {
+      if (key !== "all") result[key] = items.filter((item) => item.category === key).length;
+    });
+    return result;
+  }, []);
 
   const filtered = useMemo(() => {
     const keyword = query.trim().toLowerCase();
@@ -134,14 +152,9 @@ export default function App() {
         <section className="component-grid">
           {filtered.map(({ name, author, tags, source, original, fidelity: itemFidelity, Demo }) => (
             <article className="component-card" key={name}>
-              <div className="component-preview">
-                <div className="component-preview-inner"><Demo /></div>
-              </div>
+              <div className="component-preview"><div className="component-preview-inner"><Demo /></div></div>
               <div className="component-card-footer">
-                <div className="component-identity">
-                  <strong>{name}</strong>
-                  <span>@{author}</span>
-                </div>
+                <div className="component-identity"><strong>{name}</strong><span>@{author}</span></div>
                 <div className="component-actions">
                   <span className={`fidelity-dot ${itemFidelity}`} title={fidelityLabels[itemFidelity]} />
                   <a href={`https://github.com/Tyr1onX/ui/blob/main/${source}`} title="仓库源码">Code</a>
@@ -152,7 +165,6 @@ export default function App() {
             </article>
           ))}
         </section>
-
         {filtered.length === 0 ? <div className="empty-state">没有匹配的组件。</div> : null}
       </main>
     </div>
