@@ -205,8 +205,21 @@ button {
   border-radius: 13px;
   background:
     linear-gradient(rgba(12, 20, 16, .08), rgba(12, 20, 16, .08)),
-    url("https://images.unsplash.com/photo-1432251407527-504a6b4174a2?q=80&w=1480&auto=format&fit=crop") center center / cover;
+    url("https://images.unsplash.com/photo-1432251407527-504a6b4174a2?q=80&w=1480&auto=format&fit=crop") center center / 118% auto;
+  animation: moveBackground 60s linear infinite alternate;
   isolation: isolate;
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: center center, 42% 50%;
+  }
+  50% {
+    background-position: center center, 54% 46%;
+  }
+  100% {
+    background-position: center center, 62% 53%;
+  }
 }
 
 .liquid-demo-shade {
@@ -292,6 +305,12 @@ button {
   transform: scale(.96);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .liquid-demo-stage {
+    animation: none;
+  }
+}
+
 @media (max-width: 720px) {
   .site-shell {
     width: min(100% - 22px, 1260px);
@@ -312,6 +331,7 @@ button {
 
   .liquid-demo-stage {
     min-height: 326px;
+    background-size: auto 118%;
   }
 
   .liquid-demo-icons {
