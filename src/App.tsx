@@ -10,6 +10,7 @@ import { OceanicCurrentsDemo } from "./demos/oceanic-currents-demo";
 import { ParticleDriftDemo } from "./demos/particle-drift-demo";
 import { SkyToggleDemo } from "./demos/sky-toggle-demo";
 import { SparkBadgeDemo } from "./demos/spark-badge-demo";
+import { SpotlightDemo } from "./demos/spotlight-demo";
 import { TactileButtonDemo } from "./demos/tactile-button-demo";
 import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
@@ -48,6 +49,13 @@ const items = [
     tags: ["Effect", "Canvas", "Particles"],
     source: "components/effects/particle-drift.tsx",
     Demo: ParticleDriftDemo,
+  },
+  {
+    name: "Spotlight",
+    description: "Motion Primitives' cursor-following spotlight with the same blue grid-pattern example shown on 21st.dev.",
+    tags: ["Effect", "Cursor", "Spotlight"],
+    source: "components/effects/spotlight.tsx",
+    Demo: SpotlightDemo,
   },
   {
     name: "Theme Toggle",
