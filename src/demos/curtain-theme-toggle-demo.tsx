@@ -11,7 +11,7 @@ export function CurtainThemeToggleDemo() {
 
   return (
     <div
-      ref={(node) => setPortalTarget(node)}
+      ref={setPortalTarget}
       style={{
         minHeight: 384,
         borderRadius: 13,
@@ -19,43 +19,32 @@ export function CurtainThemeToggleDemo() {
         placeItems: "center",
         position: "relative",
         overflow: "hidden",
-        color: dark ? "#f8fafc" : "#171717",
-        background: dark ? "#15171c" : "#f7f7f4",
-        transition: "background .2s ease, color .2s ease",
+        color: dark ? "#dfd8c6" : "#1a1a1a",
+        background: dark ? "#0e0e0e" : "#f3ede1",
+        transition: "background .3s ease, color .3s ease",
         isolation: "isolate",
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: dark
-            ? "radial-gradient(circle at 75% 15%, rgba(120,130,165,.18), transparent 30%), linear-gradient(135deg, transparent 0 48%, rgba(255,255,255,.035) 48% 49%, transparent 49%)"
-            : "radial-gradient(circle at 75% 15%, rgba(255,190,100,.18), transparent 30%), linear-gradient(135deg, transparent 0 48%, rgba(0,0,0,.035) 48% 49%, transparent 49%)",
-          backgroundSize: "auto, 34px 34px",
-        }}
-      />
-
-      <div style={{ position: "relative", zIndex: 1, width: "min(330px, calc(100% - 42px))" }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 18 }}>
-          <div>
-            <span style={{ display: "block", marginBottom: 8, opacity: .55, fontSize: 9, fontWeight: 850, letterSpacing: ".16em" }}>
-              CURTAIN TRANSITION
-            </span>
-            <strong style={{ display: "block", fontSize: 22, letterSpacing: "-.04em" }}>
-              {dark ? "After dark" : "Daylight"}
-            </strong>
-            <p style={{ margin: "7px 0 0", opacity: .58, fontSize: 12, lineHeight: 1.5 }}>
-              The theme swaps only after the curtain fully covers this preview.
-            </p>
-          </div>
-
+      <div style={{ position: "relative", zIndex: 1, display: "grid", justifyItems: "center", gap: 18 }}>
+        <p style={{ margin: 0, opacity: 0.6, fontSize: 12 }}>
+          Click the button to see the animation.
+        </p>
+        <div
+          style={{
+            padding: 16,
+            borderRadius: 16,
+            background: dark ? "#000" : "#fff",
+            border: dark ? "1px solid rgba(255,255,255,.1)" : "1px solid rgba(0,0,0,.05)",
+            boxShadow: "0 10px 28px rgba(0,0,0,.10)",
+          }}
+        >
           <CurtainThemeToggle
-            theme={theme}
+            variant="icon"
+            defaultTheme="light"
+            duration={600}
             onThemeChange={setTheme}
             portalTarget={portalTarget}
-            buttonSize={46}
+            syncDocumentTheme={false}
           />
         </div>
       </div>
