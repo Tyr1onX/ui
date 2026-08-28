@@ -1,4 +1,5 @@
-import { useMemo, useState, type ComponentType } from "react";
+import { useEffect, useMemo, useState, type ComponentType, type MouseEvent } from "react";
+import { getComponentSource } from "./component-sources";
 import { AnimatedGlowCardDemo } from "./demos/animated-glow-card-demo";
 import { AnimatedGradientBorderDemo } from "./demos/animated-gradient-border-demo";
 import { AuroraBackgroundDemo } from "./demos/aurora-background-demo";
@@ -28,6 +29,7 @@ import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
 type Category = "effects" | "cards" | "status" | "borders" | "buttons" | "toggles" | "docks" | "loaders";
 type Fidelity = "source" | "adapted" | "reproduction";
+type DetailTab = "preview" | "code";
 
 type GalleryItem = {
   name: string;
@@ -93,6 +95,9 @@ export default function App() {
   const [category, setCategory] = useState<Category | "all">("all");
   const [fidelity, setFidelity] = useState<Fidelity | "all">("all");
   const [query, setQuery] = useState("");
+  const [selectedItem, setSelectedItem] = useState<GalleryItem | null>(null);
+  const [detailTab, setDetailTab] = useState<DetailTab>("preview");
+  const [copied, setCopied] = useState(false);
 
   const counts = useMemo(() => {
     const result = { all: items.length } as Record<Category | "all", number>;
@@ -111,6 +116,52 @@ export default function App() {
       return [item.name, item.author, ...item.tags].some((value) => value.toLowerCase().includes(keyword));
     });
   }, [category, fidelity, query]);
+
+  const selectedSource = selectedItem ? getComponentSource(selectedItem.source) : "";
+
+  useEffect(() => {
+    if (!selectedItem) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setSelectedItem(null);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedItem]);
+
+  function openItem(item: GalleryItem) {
+    setSelectedItem(item);
+    setDetailTab("preview");
+    setCopied(false);
+  }
+
+  function handleCardClick(event: MouseEvent<HTMLElement>, item: GalleryItem) {
+    const target = event.target as HTMLElement;
+    if (target.closest("a,button,input,textarea,select,[role='button']")) return;
+    openItem(item);
+  }
+
+  async function copySelectedSource() {
+    if (!selectedSource) return;
+    try {
+      await navigator.clipboard.writeText(selectedSource);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = selectedSource;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1600);
+  }
 
   return (
     <div className="browser-shell">
@@ -153,23 +204,80 @@ export default function App() {
         </div>
 
         <section className="component-grid">
-          {filtered.map(({ name, author, tags, source, original, originalLabel, fidelity: itemFidelity, Demo }) => (
-            <article className="component-card" key={name}>
-              <div className="component-preview"><div className="component-preview-inner"><Demo /></div></div>
-              <div className="component-card-footer">
-                <div className="component-identity"><strong>{name}</strong><span>@{author}</span></div>
-                <div className="component-actions">
-                  <span className={`fidelity-dot ${itemFidelity}`} title={fidelityLabels[itemFidelity]} />
-                  <a href={`https://github.com/Tyr1onX/ui/blob/main/${source}`} title="仓库源码">Code</a>
-                  <a href={original} target="_blank" rel="noreferrer" title="原始页面">{originalLabel ?? "21st"} ↗</a>
+          {filtered.map((item) => {
+            const { name, author, tags, source, original, originalLabel, fidelity: itemFidelity, Demo } = item;
+            return (
+              <article
+                className="component-card"
+                key={name}
+                tabIndex={0}
+                role="button"
+                aria-label={`打开 ${name} 大预览`}
+                onClick={(event) => handleCardClick(event, item)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openItem(item);
+                  }
+                }}
+              >
+                <div className="component-preview"><div className="component-preview-inner"><Demo /></div></div>
+                <div className="component-card-footer">
+                  <div className="component-identity"><strong>{name}</strong><span>@{author}</span></div>
+                  <div className="component-actions">
+                    <span className={`fidelity-dot ${itemFidelity}`} title={fidelityLabels[itemFidelity]} />
+                    <button type="button" onClick={() => openItem(item)} title="放大预览">Preview</button>
+                    <a href={`https://github.com/Tyr1onX/ui/blob/main/${source}`} onClick={(event) => event.stopPropagation()} title="仓库源码">Code</a>
+                    <a href={original} onClick={(event) => event.stopPropagation()} target="_blank" rel="noreferrer" title="原始页面">{originalLabel ?? "21st"} ↗</a>
+                  </div>
                 </div>
-              </div>
-              <div className="component-tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-            </article>
-          ))}
+                <div className="component-tags">{tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              </article>
+            );
+          })}
         </section>
         {filtered.length === 0 ? <div className="empty-state">没有匹配的组件。</div> : null}
       </main>
+
+      {selectedItem ? (
+        <div className="component-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelectedItem(null); }}>
+          <section className="component-modal" role="dialog" aria-modal="true" aria-label={`${selectedItem.name} 组件详情`}>
+            <header className="component-modal-header">
+              <div className="component-modal-title">
+                <strong>{selectedItem.name}</strong>
+                <span>@{selectedItem.author}</span>
+              </div>
+              <div className="component-modal-actions">
+                <button className="primary" type="button" onClick={copySelectedSource} disabled={!selectedSource}>{copied ? "已复制" : "复制源码"}</button>
+                <a href={`https://github.com/Tyr1onX/ui/blob/main/${selectedItem.source}`} target="_blank" rel="noreferrer">GitHub 源码 ↗</a>
+                <a href={selectedItem.original} target="_blank" rel="noreferrer">{selectedItem.originalLabel ?? "21st 来源"} ↗</a>
+                <button className="close" type="button" onClick={() => setSelectedItem(null)} aria-label="关闭">×</button>
+              </div>
+            </header>
+
+            <div className="component-modal-subbar">
+              <div className="component-modal-tabs" role="tablist" aria-label="预览与源码">
+                <button type="button" className={detailTab === "preview" ? "active" : ""} onClick={() => setDetailTab("preview")}>预览</button>
+                <button type="button" className={detailTab === "code" ? "active" : ""} onClick={() => setDetailTab("code")}>源码</button>
+              </div>
+              <div className="component-modal-meta">
+                <span className={`fidelity-dot ${selectedItem.fidelity}`} />
+                <span>{fidelityLabels[selectedItem.fidelity]}</span>
+                {selectedItem.tags.map((tag) => <em key={tag}>{tag}</em>)}
+              </div>
+            </div>
+
+            {detailTab === "preview" ? (
+              <div className="component-modal-preview"><selectedItem.Demo /></div>
+            ) : (
+              <div className="component-modal-code">
+                <div className="component-modal-codebar"><span>{selectedItem.source}</span><button type="button" onClick={copySelectedSource}>{copied ? "已复制" : "复制"}</button></div>
+                <pre><code>{selectedSource || "未能载入该组件源码。"}</code></pre>
+              </div>
+            )}
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }
