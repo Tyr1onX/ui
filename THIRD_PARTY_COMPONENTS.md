@@ -23,6 +23,7 @@ This repository contains visual components sourced from or adapted from public u
 
 ## Source-based with gallery isolation/runtime adaptation
 
+- Interactive Selector: based on minhxthanh's 21st.dev rendered reference and a matching public mirror. The five camping panels, exact text/image set, Font Awesome icon family, `flex: 7` active expansion, 700ms transitions, and 180ms staggered entrance are preserved. Vite compatibility replaces `style jsx` with a normal scoped style tag and the demo exposes a viewport-height override for gallery containment.
 - Liquid Gooey: uses Jakub Antalik's official `liquid-gooey` package (`0.1.x`, MIT) directly. The compact gallery component follows the upstream Plus Menu morph pattern while using local inline SVG icons and RedPalm-oriented labels; no iframe, CDN, or external image assets are required.
 - Theme Toggle: the public Ayushmaan/21st-style implementation uses `next-themes` and changes the document theme. The gallery preserves the moving-knob/icon behavior but keeps theme state local so one tile cannot recolor the whole component browser.
 - Curtain Theme Toggle: the public Fatih implementation is restored, including `default` / `appbar` / `icon` variants, design tokens, and falling/rising curtain timing. Two optional isolation hooks contain the curtain inside a preview tile and prevent global `document.documentElement` dark-class mutation.
