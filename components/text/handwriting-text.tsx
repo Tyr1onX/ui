@@ -72,7 +72,7 @@ export function HandwritingText({
         lineHeight: 1,
       }}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence mode="popLayout">
         <motion.span
           key={word}
           aria-hidden="true"
