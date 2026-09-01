@@ -11,6 +11,7 @@ import { CurtainThemeToggleDemo } from "./demos/curtain-theme-toggle-demo";
 import { DynamicIslandDemo } from "./demos/dynamic-island-demo";
 import { FlippingCardDemo } from "./demos/flipping-card-demo";
 import { GooeyDockDemo } from "./demos/gooey-dock-demo";
+import { HandwritingTextDemo } from "./demos/handwriting-text-demo";
 import { InteractiveSelectorDemo } from "./demos/interactive-selector-demo";
 import { LiquidGlassButtonDemo } from "./demos/liquid-glass-button-demo";
 import { LiquidGlassCardDemo } from "./demos/liquid-glass-card-demo";
@@ -28,7 +29,7 @@ import { SpotlightDemo } from "./demos/spotlight-demo";
 import { TactileButtonDemo } from "./demos/tactile-button-demo";
 import { ThemeToggleDemo } from "./demos/theme-toggle-demo";
 
-type Category = "effects" | "cards" | "status" | "borders" | "buttons" | "toggles" | "docks" | "loaders" | "selectors";
+type Category = "effects" | "cards" | "status" | "borders" | "buttons" | "toggles" | "docks" | "loaders" | "selectors" | "text";
 type Fidelity = "source" | "adapted" | "reproduction";
 type DetailTab = "preview" | "code";
 
@@ -54,6 +55,7 @@ const items: GalleryItem[] = [
   { name: "Animated Gradient Border", author: "easemize", category: "borders", tags: ["Border", "Gradient", "Active", "RedPalm"], source: "components/borders/animated-gradient-border.tsx", original: "https://21st.dev/@easemize/components/animated-gradient-border", fidelity: "source", Demo: AnimatedGradientBorderDemo },
   { name: "Gooey Dock", author: "ruixen.ui", category: "docks", tags: ["Navigation", "Motion", "RedPalm"], source: "components/docks/gooey-dock.tsx", original: "https://21st.dev/@ruixen.ui/components/gooey-dock", fidelity: "source", Demo: GooeyDockDemo },
   { name: "Interactive Selector", author: "minhxthanh", category: "selectors", tags: ["Selector", "Cards", "Interaction", "Images"], source: "components/selectors/interactive-selector.tsx", original: "https://21st.dev/@minhxthanh/components/interactive-selector", fidelity: "adapted", Demo: InteractiveSelectorDemo },
+  { name: "Handwriting Text", author: "Moazzam", category: "text", tags: ["Typography", "Text", "Animation", "SVG"], source: "components/text/handwriting-text.tsx", original: "https://21st.dev/@davailospirasto/components/handwriting-text", fidelity: "reproduction", Demo: HandwritingTextDemo },
   { name: "Liquid Glass", author: "suraj-xd", category: "effects", tags: ["Glass", "Dock"], source: "components/effects/liquid-glass.tsx", original: "https://21st.dev/@suraj-xd/components/liquid-glass", fidelity: "source", Demo: LiquidGlassDemo },
   { name: "Liquid Gooey", author: "Jakub Antalik", category: "effects", tags: ["Liquid", "Gooey", "Morph", "Motion", "RedPalm"], source: "components/effects/liquid-gooey.tsx", original: "https://gooey.jakubantalik.com/", originalLabel: "Demo", fidelity: "adapted", Demo: LiquidGooeyDemo },
   { name: "Aurora Background", author: "manuarora700", category: "effects", tags: ["Background", "Aurora"], source: "components/effects/aurora-background.tsx", original: "https://21st.dev/@manuarora700/components/aurora-background", fidelity: "source", Demo: AuroraBackgroundDemo },
@@ -85,6 +87,7 @@ const categoryLabels: Record<Category | "all", string> = {
   docks: "Dock / 导航",
   loaders: "加载器",
   selectors: "选择器",
+  text: "文字 / 排版",
 };
 
 const fidelityLabels: Record<Fidelity | "all", string> = {
