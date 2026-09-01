@@ -38,6 +38,7 @@ This repository contains visual components sourced from or adapted from public u
 
 ## Reproduction pending verification / intentionally lightweight
 
+- Handwriting Text: independent Vite-friendly reproduction of Moazzam's 21st.dev Handwriting Text reference. The public page exposes the behavior, usage API, MIT license label, and preview, while the full `Component.tsx` implementation is member-locked. This repository therefore does not claim source fidelity: it recreates the trace-then-fill word cycle with Framer Motion, local system handwriting fonts, configurable timing, and reduced-motion handling.
 - Oceanic Currents: the 21st shader preview is the visual reference, but no complete trustworthy public upstream source matching that specific preset has been verified. The current implementation is an independent zero-dependency WebGL reproduction and must remain marked `reproduction` until a source is found.
 - Playing Card: lightweight Vite-friendly reproduction of Maxim Bortnikov's 21st Playing Card. The original depends on Next.js, `@react-three/fiber`, and `three`; this gallery version preserves the layered card/inscription/reveal idea without importing that runtime stack.
 - Liquid Glass Card: lightweight reproduction of Ali Imam's 21st liquid-glass card treatment, implemented as a reusable self-contained glass panel for this gallery.
